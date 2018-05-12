@@ -37,16 +37,28 @@ class TaskList extends React.Component {
 
   editTask(e) {
     e.preventDefault();
-    console.log(`editTask taskId: ${this.state.editTask.taskId}`);
-    console.log(`editTask: ${JSON.stringify(this.state.editTask)}`);
-    const payload = JSON.stringify({data: this.state.editTask});
-    fetch(`http://localhost:3001/api/tasks/${this.state.editTask.taskId}`, {
+    const task = this.state.editTask;
+
+    const payload = JSON.stringify({
+      data: {
+        title: task.title,
+        description: task.description,
+        taskId: task.taskId,
+        completedDate: task.completedDate
+      }
+    });
+    console.log('payload: ' + payload);
+
+    fetch(`http://localhost:3001/api/tasks/${task.taskId}`, {
       method: 'PUT',
       headers: {
-        Accept: 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
       },
       body: payload
-    }).then(() => this.getTasks());
+    })
+    .then(this.handleCloseEdit)
+    .then(() => this.getTasks());
   }
 
   handleCloseEdit(e) {
@@ -54,7 +66,8 @@ class TaskList extends React.Component {
   }
 
   handleShowEdit(e, task) {
-    this.setState({ showEdit: true, editTask: task });
+    const edit = Object.assign({}, task);
+    this.setState({ showEdit: true, editTask: edit });
   }
 
   handleEditChange(e) {
