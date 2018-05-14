@@ -4,6 +4,10 @@ import './App.css';
 import TaskList from './components/TaskList';
 
 class App extends Component {
+  constructor() {
+    this.apiUrl = 'http://localhost:3001/api';
+  }
+
   render() {
     return (
       <div className="App">
@@ -14,7 +18,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <TaskList />
+        <TaskList apiUrl={this.apiUrl} />
 
       </div>
     );

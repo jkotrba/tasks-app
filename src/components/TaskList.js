@@ -4,9 +4,10 @@ import '../css/task-list.css';
 import AddTask from './AddTask';
 
 class TaskList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
+    this.apiUrl = props.apiUrl;
     this.state = { tasks: [], showEdit: false, editTask: {} };
     this.getTasks = this.getTasks.bind(this);
     this.onAddTask = this.onAddTask.bind(this);
@@ -18,7 +19,7 @@ class TaskList extends React.Component {
   }
 
   getTasks() {
-    fetch('http://localhost:3001/api/tasks')
+    fetch(`${this.apiUrl}/tasks`)
       .then(response => response.json())
       .then(json => {
         this.setState({ tasks: json.data });
@@ -27,7 +28,7 @@ class TaskList extends React.Component {
 
   deleteTask(e, taskId) {
     e.preventDefault();
-    fetch(`http://localhost:3001/api/tasks/${taskId}`, {
+    fetch(`${this.apiUrl}/tasks/${taskId}`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json'
@@ -49,7 +50,7 @@ class TaskList extends React.Component {
     });
     console.log('payload: ' + payload);
 
-    fetch(`http://localhost:3001/api/tasks/${task.taskId}`, {
+    fetch(`${this.apiUrl}/tasks/${task.taskId}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -86,7 +87,7 @@ class TaskList extends React.Component {
 
   onAddTask(task) {
     const payload = JSON.stringify({ data: task });
-    fetch('http://localhost:3001/api/tasks', {
+    fetch(`${this.apiUrl}/tasks`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
