@@ -3,6 +3,16 @@ import { Table, Button, Glyphicon, Modal, FormGroup, ControlLabel, FormControl }
 import '../css/task-list.css';
 import AddTask from './AddTask';
 
+function DateDisplay(props) {
+  if(props.date) {
+    let date = new Date(props.date);
+    return (
+      date.toLocaleDateString()
+    )
+  }
+  return '--';
+}
+
 class TaskList extends React.Component {
   constructor(props) {
     super(props);
@@ -116,10 +126,8 @@ class TaskList extends React.Component {
                 <tr key={t.taskId}>
                   <td>{t.title}</td>
                   <td>{t.description}</td>
-                  <td>{t.createdDate}</td>
-                  <td>{t.completedDate}</td>
-                  <td> </td>
-                  <td> </td>
+                  <td><DateDisplay date={t.createdDate} /></td>
+                  <td><DateDisplay date={t.completedDate} /></td>
                   <td>
                     <Button
                       bsStyle="danger"
