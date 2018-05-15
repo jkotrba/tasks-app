@@ -5,6 +5,7 @@ import TaskList from './components/TaskList';
 
 class App extends Component {
   constructor() {
+    super();
     this.apiUrl = 'http://localhost:3001/api';
   }
 
