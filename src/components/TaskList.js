@@ -112,12 +112,22 @@ class TaskList extends React.Component {
       <div className="task-list">
         <h2>Tasks</h2>
         <Table className="striped">
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+            <col className="task-list-delete" />
+            <col className="task-list-edit" />
+          </colgroup>
           <thead>
             <tr>
               <th>Title</th>
               <th>Description</th>
               <th>Created</th>
               <th>Completed</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
